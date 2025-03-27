@@ -34,6 +34,24 @@ async function controlXampp(action: 'start' | 'stop', service: string) {
 	}
 }
 
+
+/** This function will check if the service is running or not
+ * 
+ * @param service 
+ * @returns 
+ */
+async function serverStatus(service: 'apache' | 'mysql'): Promise<boolean> {
+    try {
+        const result = await runCommand(`ps aux | grep '${service}' | grep -v grep`);
+        return result.length > 0;
+    } catch {
+        return false;
+    }
+}
+
+
+
+
 /**
  * Activate
  * @param context 
